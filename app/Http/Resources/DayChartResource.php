@@ -2,17 +2,17 @@
 
 namespace App\Http\Resources;
 
-use App\Day;
+use App\Models\Day;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DayChartResource extends JsonResource
 {
-    /** @var \Illuminate\Support\Collection|\App\Day[] */
+    /** @var \Illuminate\Support\Collection|\App\Models\Day[] */
     public $resource;
 
     public function toArray($request)
     {
-        $headers = ['Day (d/m/Y)', 'Deaths', 'Recovered', 'Ongoing'];
+        $headers = ['Day (d/m/Y)', 'Morts', 'Rétablies', 'Touchés'];
 
         $rows = $this->resource->map(function(Day $day) {
             return [

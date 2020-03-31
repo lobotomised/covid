@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Day;
+use App\Models\Day;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

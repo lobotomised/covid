@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Day;
+use App\Models\Day;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

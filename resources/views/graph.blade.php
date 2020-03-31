@@ -9,7 +9,7 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            var data = google.visualization.arrayToDataTable({!! $chartData !!});
+            var data = google.visualization.arrayToDataTable({!! $chartData->toJson() !!});
             var options = {
                 title: 'Nombre de cas de Covid-19: {{ $country }}',
                 curveType: 'function',
@@ -18,9 +18,9 @@
                 lineWidth: 3,
                 isStacked: true,
                 series: {
-                    2: {color: '#1c91c0'},
                     0: {color: '#e2431e'},
-                    1: {color: '#6f9654'},
+                    1: {color: '#1c91c0'},
+                    2: {color: '#6f9654'},
                 },
                 vAxis: {
                     viewWindowMode: 'explicit',
@@ -40,6 +40,53 @@
         </div>
 
         <div id="graph"></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Touchés</th>
+                    <th>Morts</th>
+                    <th>Rétablies</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td>Date</td>
+                    <td>Touchés</td>
+                    <td>Morts</td>
+                    <td>Rétablies</td>
+                </tr>
+                </tfoot>
+                <tbody>
+                @php $data = $chartData->reverse()->values(); @endphp
+
+                @for($i = 0; $i < $data->count(); $i++)
+                    <tr>
+                        <td> {{$data[$i]->date->format('d/m/Y')}}</td>
+                        <td>
+                            {{$data[$i]->confirmed}}
+                            @isset($data[$i+1])
+                                <span class="delta">({{ delta($data[$i]->confirmed, $data[$i+1]->confirmed) }})</span>
+                            @endisset
+                        </td>
+                        <td>
+                            {{$data[$i]->deaths}}
+                            @isset($data[$i+1])
+                                <span class="delta">({{ delta($data[$i]->deaths, $data[$i+1]->deaths) }})</span>
+                            @endisset
+                        </td>
+                        <td>
+                            {{$data[$i]->recovered}}
+                            @isset($data[$i+1])
+                                <span class="delta">({{ delta($data[$i]->recovered, $data[$i+1]->recovered) }})</span>
+                            @endisset
+                        </td>
+                    </tr>
+                @endfor
+                </tbody>
+            </table>
+        </div>
 
         <div class="flex-center">
             <p>

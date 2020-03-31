@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Day;
+use App\Models\Day;
 use App\Http\Resources\DayChartResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -24,7 +24,7 @@ class GraphController extends Controller
 
         return view('graph', [
             'days' => $days,
-            'chartData' => $chartData->toJson(),
+            'chartData' => $chartData,
             'country' => $days->first()->country,
         ]);
     }
