@@ -1,7 +1,8 @@
 @component('layout', [
     'chartData' => $chartData,
-    'country' => $country
+    'country' => $country,
 ])
+    @slot('title'){{ $country }}@endslot
 
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
