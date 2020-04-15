@@ -9,7 +9,7 @@ function delta(int $value1, int $value2) {
         $output = '+';
     } else {
         if($signe === -1) {
-            $output = '-1';
+            $output = '-';
         } else {
             $output = '';
         }
