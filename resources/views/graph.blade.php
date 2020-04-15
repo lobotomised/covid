@@ -59,7 +59,10 @@
                 </tr>
                 </tfoot>
                 <tbody>
-                @php $data = $chartData->reverse()->values(); @endphp
+                @php
+                    /** @var \Illuminate\Support\Collection $chartData */
+                    $data = $chartData->reverse()->values();
+                @endphp
 
                 @for($i = 0; $i < $data->count(); $i++)
                     <tr>
