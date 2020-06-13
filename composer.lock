@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4614138cbfd35d5657040ee6aef3d868",
+    "content-hash": "e5f7eead0fa4204297f566a01814311d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1368,6 +1368,60 @@
                 "storage"
             ],
             "time": "2020-03-17T18:58:12+00:00"
+        },
+        {
+            "name": "lobotomised/dbbackup",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lobotomised/dbbackup.git",
+                "reference": "39aedb8b1d20ab9ade8fca203de46eefa3089ccd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lobotomised/dbbackup/zipball/39aedb8b1d20ab9ade8fca203de46eefa3089ccd",
+                "reference": "39aedb8b1d20ab9ade8fca203de46eefa3089ccd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6.0|^7.0",
+                "illuminate/database": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lobotomised\\Dbbackup\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lobotomised\\Dbbackup\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lobotomised",
+                    "email": "contact@lobotomised.net"
+                }
+            ],
+            "description": "A databases backup tools for laravel",
+            "keywords": [
+                "backup",
+                "database",
+                "laravel"
+            ],
+            "time": "2020-03-05T14:36:20+00:00"
         },
         {
             "name": "monolog/monolog",

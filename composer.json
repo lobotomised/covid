@@ -16,6 +16,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
+        "lobotomised/dbbackup": "^1.0",
         "sentry/sentry-laravel": "1.8.0"
     },
     "require-dev": {

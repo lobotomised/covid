@@ -29,6 +29,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('sync:days')->hourly()->withoutOverlapping();
 
         $schedule->command('sync:notify')->dailyAt('07:00');
+
+        $schedule->command('db:backup --delete --keep=5')->daily()->at('05:00');
     }
 
     /**
