@@ -45,17 +45,17 @@
                 <thead>
                 <tr>
                     <td>Date</td>
-                    <td>Touchés <span class="delta">{{ $sum['confirmed'] }}</span></td>
-                    <td>Morts <span class="delta">{{ $sum['deaths'] }}</span></td>
-                    <td>Rétablies <span class="delta">{{ $sum['recovered'] }}</span></td>
+                    <td>Touchés</td>
+                    <td>Morts</td>
+                    <td>Rétablies</td>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                     <td>Date</td>
-                    <td>Touchés <span class="delta">{{ $sum['confirmed'] }}</span></td>
-                    <td>Morts <span class="delta">{{ $sum['deaths'] }}</span></td>
-                    <td>Rétablies <span class="delta">{{ $sum['recovered'] }}</span></td>
+                    <td>Touchés</td>
+                    <td>Morts</td>
+                    <td>Rétablies</td>
                 </tr>
                 </tfoot>
                 <tbody>

@@ -25,16 +25,9 @@ class GraphController extends Controller
 
         $chartData = DayChartResource::make($days);
 
-        $sum = [
-            'confirmed' => $days->sum('confirmed'),
-            'deaths'    => $days->sum('deaths'),
-            'recovered' => $days->sum('recovered'),
-        ];
-
         return view('graph', [
             'days'      => $days,
             'chartData' => $chartData,
-            'sum'       => $sum,
             'country'   => $days->first()->country,
         ]);
     }
