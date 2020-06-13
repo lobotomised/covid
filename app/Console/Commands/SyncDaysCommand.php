@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Day;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SyncDaysCommand extends Command
 {
@@ -17,20 +18,21 @@ class SyncDaysCommand extends Command
 
     public function handle()
     {
-        $this->sync(
-            'confirmed',
-            json_decode(file_get_contents('https://coronavirus-tracker-api.herokuapp.com/confirmed'), true)
-        );
+        try {
+            $confirmed = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/confirmed');
+            $deaths = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/deaths');
+            $recovered = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/recovered');
+        }
+        catch (\Exception $e) {
+            Log::debug('Error loading api');
+        }
 
-        $this->sync(
-            'deaths',
-            json_decode(file_get_contents('https://coronavirus-tracker-api.herokuapp.com/deaths'), true)
-        );
+        $this->sync('confirmed', json_decode($confirmed, true));
 
-        $this->sync(
-            'recovered',
-            json_decode(file_get_contents('https://coronavirus-tracker-api.herokuapp.com/recovered'), true)
-        );
+        $this->sync('deaths', json_decode($deaths, true));
+
+        $this->sync('recovered', json_decode($recovered, true));
+
     }
 
     private function sync(string $type, array $data)
@@ -41,16 +43,16 @@ class SyncDaysCommand extends Command
 
         $i = 0;
 
-        foreach($data['locations'] as $item) {
+        foreach ($data['locations'] as $item) {
             $country = $item['province'] ?: $item['country'];
 
-            foreach($item['history'] as $date => $count) {
+            foreach ($item['history'] as $date => $count) {
                 $date = Carbon::createFromFormat('n/j/y', $date)->startOfDay();
 
                 Day::updateOrCreate([
                     'country_code' => $item['country_code'],
                     'country' => $country,
-                    'date' => $date
+                    'date' => $date,
                 ], [
                     $type => $count,
                 ]);
