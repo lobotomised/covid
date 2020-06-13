@@ -44,18 +44,18 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Touchés</th>
-                    <th>Morts</th>
-                    <th>Rétablies</th>
+                    <td>Date</td>
+                    <td>Touchés <span class="delta">{{ $sum['confirmed'] }}</span></td>
+                    <td>Morts <span class="delta">{{ $sum['deaths'] }}</span></td>
+                    <td>Rétablies <span class="delta">{{ $sum['recovered'] }}</span></td>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
                     <td>Date</td>
-                    <td>Touchés</td>
-                    <td>Morts</td>
-                    <td>Rétablies</td>
+                    <td>Touchés <span class="delta">{{ $sum['confirmed'] }}</span></td>
+                    <td>Morts <span class="delta">{{ $sum['deaths'] }}</span></td>
+                    <td>Rétablies <span class="delta">{{ $sum['recovered'] }}</span></td>
                 </tr>
                 </tfoot>
                 <tbody>
