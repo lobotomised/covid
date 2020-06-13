@@ -68,19 +68,19 @@
                     <tr>
                         <td> {{$data[$i]->date->format('d/m/Y')}}</td>
                         <td>
-                            {{$data[$i]->confirmed}}
+                            {{ number_formating($data[$i]->confirmed) }}
                             @isset($data[$i+1])
                                 <span class="delta">({{ delta($data[$i]->confirmed, $data[$i+1]->confirmed) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{$data[$i]->deaths}}
+                            {{ number_formating($data[$i]->deaths) }}
                             @isset($data[$i+1])
                                 <span class="delta">({{ delta($data[$i]->deaths, $data[$i+1]->deaths) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{$data[$i]->recovered}}
+                            {{ number_formating($data[$i]->recovered) }}
                             @isset($data[$i+1])
                                 <span class="delta">({{ delta($data[$i]->recovered, $data[$i+1]->recovered) }})</span>
                             @endisset

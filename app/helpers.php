@@ -11,3 +11,7 @@ function delta(int $value1, int $value2)
 
     return $output . $delta;
 }
+
+function number_formating(int $number) {
+    return number_format($number, 0, ',', ' ');
+}
