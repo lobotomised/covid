@@ -16,6 +16,12 @@ class Day extends Model
         'recovered' => 'integer'
     ];
 
+    protected $attributes = [
+        'confirmed' => 0,
+        'deaths' => 0,
+        'recovered' => 0,
+    ];
+
     public function scopeWhereCountry(Builder $builder, string $country): Builder
     {
         $builder->where('country', $country);

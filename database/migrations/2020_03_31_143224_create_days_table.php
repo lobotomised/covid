@@ -19,9 +19,9 @@ class CreateDaysTable extends Migration
             $table->string('country');
             $table->string('country_code');
             $table->dateTime('date');
-            $table->integer('confirmed')->nullable();
-            $table->integer('deaths')->nullable();
-            $table->integer('recovered')->nullable();
+            $table->integer('confirmed');
+            $table->integer('deaths');
+            $table->integer('recovered');
 
             $table->unique(['country_code', 'country', 'date']);
 
