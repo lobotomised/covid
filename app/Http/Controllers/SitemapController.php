@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Day;
@@ -26,7 +28,7 @@ class SitemapController extends Controller
         $view = view('sitemap', ['urls' => $this->url])->render();
 
         return Response::make($view, 200, [
-            'content-type' => 'text/xml'
+            'content-type' => 'text/xml',
         ]);
     }
 }

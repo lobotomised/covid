@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Models\Day;
@@ -14,7 +16,7 @@ class DayChartResource extends JsonResource
     {
         $headers = ['Day (d/m/Y)', 'Morts', 'Rétablies', 'Touchés'];
 
-        $rows = $this->resource->map(function(Day $day) {
+        $rows = $this->resource->map(function (Day $day) {
             return [
                 $day->date->format('d/m/Y'),
                 $day->deaths ?? 0,

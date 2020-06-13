@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -10,15 +12,15 @@ class Day extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'date' => 'datetime',
+        'date'      => 'datetime',
         'confirmed' => 'integer',
-        'deaths' => 'integer',
-        'recovered' => 'integer'
+        'deaths'    => 'integer',
+        'recovered' => 'integer',
     ];
 
     protected $attributes = [
         'confirmed' => 0,
-        'deaths' => 0,
+        'deaths'    => 0,
         'recovered' => 0,
     ];
 

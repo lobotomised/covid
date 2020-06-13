@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Day;
 use App\Http\Resources\DayChartResource;
+use App\Models\Day;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
@@ -17,7 +19,7 @@ class GraphController extends Controller
             ->orderBy('date', 'asc')
             ->get();
 
-        if($days->count() === 0) {
+        if ($days->count() === 0) {
             throw new ModelNotFoundException();
         }
 
@@ -25,15 +27,15 @@ class GraphController extends Controller
 
         $sum = [
             'confirmed' => $days->sum('confirmed'),
-            'deaths' => $days->sum('deaths'),
+            'deaths'    => $days->sum('deaths'),
             'recovered' => $days->sum('recovered'),
         ];
 
         return view('graph', [
-            'days' => $days,
+            'days'      => $days,
             'chartData' => $chartData,
-            'sum' => $sum,
-            'country' => $days->first()->country,
+            'sum'       => $sum,
+            'country'   => $days->first()->country,
         ]);
     }
 }

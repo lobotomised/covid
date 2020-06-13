@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
+use App\Mail\UpdateMail;
+use App\Models\Day;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
-use App\Models\Day;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UpdateMail;
 
 class NotifyCommand extends Command
 {
-
     protected $signature = 'sync:notify';
 
-    public function handle()
+    public function handle(): void
     {
-        if (config('app.email') === null ) {
+        if (config('app.email') === null) {
             return ;
         }
 

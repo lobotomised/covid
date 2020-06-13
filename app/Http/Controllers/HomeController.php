@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Day;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,6 +15,6 @@ class HomeController extends Controller
             ->groupBy('country')
             ->get();
 
-        return view ('index', compact('countries'));
+        return view('index', compact('countries'));
     }
 }

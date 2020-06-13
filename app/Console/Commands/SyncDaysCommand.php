@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Models\Day;
@@ -16,14 +18,13 @@ class SyncDaysCommand extends Command
      */
     protected $signature = 'sync:days';
 
-    public function handle()
+    public function handle(): void
     {
         try {
             $confirmed = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/confirmed');
-            $deaths = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/deaths');
+            $deaths    = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/deaths');
             $recovered = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/recovered');
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::debug('Error loading api');
         }
 
@@ -32,10 +33,9 @@ class SyncDaysCommand extends Command
         $this->sync('deaths', json_decode($deaths, true));
 
         $this->sync('recovered', json_decode($recovered, true));
-
     }
 
-    private function sync(string $type, array $data)
+    private function sync(string $type, array $data): void
     {
         $this->info("Syncing {$type}");
 
@@ -51,8 +51,8 @@ class SyncDaysCommand extends Command
 
                 Day::updateOrCreate([
                     'country_code' => $item['country_code'],
-                    'country' => $country,
-                    'date' => $date,
+                    'country'      => $country,
+                    'date'         => $date,
                 ], [
                     $type => $count,
                 ]);
@@ -62,6 +62,5 @@ class SyncDaysCommand extends Command
 
             $this->comment("✅ {$item['country_code']} {$country} ({$i}/{$locationCount})");
         }
-
     }
 }
