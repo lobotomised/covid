@@ -21,7 +21,7 @@ class DeltaTest extends TestCase
     {
         $output = delta(10, 10);
 
-        $this->assertEquals('-5',  $output);
+        $this->assertEquals('0',  $output);
     }
 
     /** @test **/
