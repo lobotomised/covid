@@ -13,7 +13,6 @@ class GraphController extends Controller
     {
         /** @var Collection|Day[] $days */
         $days = Day::query()
-            ->where('confirmed', '>', 0)
             ->whereCountry($country)
             ->orderBy('date', 'asc')
             ->get();
