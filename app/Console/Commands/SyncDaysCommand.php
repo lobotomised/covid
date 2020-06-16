@@ -26,6 +26,8 @@ class SyncDaysCommand extends Command
             $recovered = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/recovered');
         } catch (\Exception $e) {
             Log::debug('Error loading api');
+
+            return;
         }
 
         $this->sync('confirmed', json_decode($confirmed, true));
