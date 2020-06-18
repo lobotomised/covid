@@ -30,11 +30,20 @@ class SyncDaysCommand extends Command
             return;
         }
 
-        $this->sync('confirmed', json_decode($confirmed, true));
+        $confirmed_data = json_decode($confirmed, true);
+        if($confirmed_data) {
+            $this->sync('confirmed', $confirmed_data);
+        }
 
-        $this->sync('deaths', json_decode($deaths, true));
+        $deaths_data = json_decode($deaths, true);
+        if($deaths_data) {
+            $this->sync('deaths', $deaths_data);
+        }
 
-        $this->sync('recovered', json_decode($recovered, true));
+        $recovered_data = json_decode($recovered, true);
+        if($recovered_data) {
+            $this->sync('recovered', $recovered_data);
+        }
     }
 
     private function sync(string $type, array $data): void
