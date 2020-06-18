@@ -31,17 +31,17 @@ class SyncDaysCommand extends Command
         }
 
         $confirmed_data = json_decode($confirmed, true);
-        if($confirmed_data) {
+        if ($confirmed_data) {
             $this->sync('confirmed', $confirmed_data);
         }
 
         $deaths_data = json_decode($deaths, true);
-        if($deaths_data) {
+        if ($deaths_data) {
             $this->sync('deaths', $deaths_data);
         }
 
         $recovered_data = json_decode($recovered, true);
-        if($recovered_data) {
+        if ($recovered_data) {
             $this->sync('recovered', $recovered_data);
         }
     }
