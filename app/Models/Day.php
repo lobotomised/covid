@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Day extends Model
@@ -34,5 +35,13 @@ class Day extends Model
     public function getOngoingAttribute(): int
     {
         return ($this->confirmed ?? 0) - (($this->deaths ?? 0) + ($this->recovered ?? 0));
+    }
+
+    public static function getCountries(): Collection
+    {
+        return self::query()
+            ->select('country')
+            ->groupBy('country')
+            ->get();
     }
 }

@@ -3,6 +3,7 @@
     @foreach($urls as $url)
         <url>
             <loc>{{$url}}</loc>
+            <changefreq>daily</changefreq>
         </url>
     @endforeach
 </urlset>

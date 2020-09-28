@@ -15,13 +15,7 @@ class SitemapController extends Controller
     {
         $this->url[] = config('app.url');
 
-        $countries = Day::query()
-            ->select('country')
-            ->groupBy('country')
-            ->get();
-
-
-        foreach ($countries as $country) {
+        foreach (Day::getCountries() as $country) {
             $this->url[] = route('country', $country->country);
         }
 
