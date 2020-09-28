@@ -68,21 +68,21 @@
                     <tr>
                         <td> {{$data[$i]->date->format('d/m/Y')}}</td>
                         <td>
-                            {{ number_formating($data[$i]->confirmed) }}
+                            {{ \App\Support\Number::format($data[$i]->confirmed) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ delta($data[$i]->confirmed, $data[$i+1]->confirmed) }})</span>
+                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->confirmed, $data[$i+1]->confirmed) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{ number_formating($data[$i]->deaths) }}
+                            {{ \App\Support\Number::format($data[$i]->deaths) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ delta($data[$i]->deaths, $data[$i+1]->deaths) }})</span>
+                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->deaths, $data[$i+1]->deaths) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{ number_formating($data[$i]->recovered) }}
+                            {{ \App\Support\Number::format($data[$i]->recovered) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ delta($data[$i]->recovered, $data[$i+1]->recovered) }})</span>
+                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->recovered, $data[$i+1]->recovered) }})</span>
                             @endisset
                         </td>
                     </tr>
