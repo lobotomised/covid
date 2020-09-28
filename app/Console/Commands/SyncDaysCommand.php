@@ -20,10 +20,10 @@ class SyncDaysCommand extends Command
     public function handle(): void
     {
         $this->getCountries()
-            ->each(function (Country $country, int $key) {
-
+            ->each(function (Country $country, int $key): void {
                 $this->comment(
-                    sprintf("✅ %s %s (%d/%d)",
+                    sprintf(
+                        '✅ %s %s (%d/%d)',
                         $country->code,
                         $country->name,
                         ++$key,
@@ -32,8 +32,8 @@ class SyncDaysCommand extends Command
                 );
 
                 $this->getDataByCountry($country)
-                    ->each(fn(Entry $entry) => $this->saveEntry($entry));
-        });
+                    ->each(fn (Entry $entry) => $this->saveEntry($entry));
+            });
     }
 
     /**
