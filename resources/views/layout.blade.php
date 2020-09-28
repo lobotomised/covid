@@ -6,6 +6,10 @@
 
     <title>Evolution Covid-19 {{ $title ?? '' }}</title>
 
+    @if(\App\Support\GitVersion::getSha1() !== null)
+        <meta name="sha" content="{{ \App\Support\GitVersion::getSha1() }}">
+    @endif
+
     <meta name="twitter:card" content="article">
     <meta property="og:type" content="article">
 
