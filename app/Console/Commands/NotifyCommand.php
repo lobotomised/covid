@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Exceptions\EmailNotConfiguredException;
 use App\Mail\UpdateMail;
 use App\Models\Day;
 use Illuminate\Console\Command;
@@ -17,7 +18,7 @@ class NotifyCommand extends Command
     public function handle(): void
     {
         if (config('app.email') === null) {
-            return ;
+            throw new EmailNotConfiguredException();
         }
 
         /** @var Collection|Day[] $records */

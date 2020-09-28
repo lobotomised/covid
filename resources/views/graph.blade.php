@@ -94,9 +94,9 @@
         <div class="flex-center">
             <p>
                 Source de données: <a
-                    href="https://github.com/ExpDev07/coronavirus-tracker-api"
-                    target="_blank" rel="noopener noreferrer"
-                >https://github.com/ExpDev07/coronavirus-tracker-api</a>
+                    href="https://documenter.getpostman.com/view/10808728/SzS8rjbc"
+                    target="_blank" rel="noopener"
+                >https://documenter.getpostman.com/view/10808728/SzS8rjbc</a>
             </p>
         </div>
     </div>

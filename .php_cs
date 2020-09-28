@@ -5,7 +5,7 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->notPath('storage/*')
     ->notPath('vendor')
     ->in([
-        __DIR__ . '/app/',
+        __DIR__ . '/app',
         __DIR__ . '/tests',
         __DIR__ . '/database',
     ])
@@ -13,7 +13,6 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->notName('*.blade.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
-
 
 return PhpCsFixer\Config::create()
     ->setRules([
@@ -41,9 +40,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_var_without_name' => true,
 
         'class_attributes_separation' => [
-            'elements' => [
-                'method', 'property',
-            ],
+            'elements' => ['method', 'property'],
         ],
         'visibility_required' => ['property', 'method'],
 
@@ -60,5 +57,7 @@ return PhpCsFixer\Config::create()
             'on_multiline' => 'ensure_fully_multiline',
             'keep_multiple_spaces_after_comma' => true,
         ],
+        'single_trait_insert_per_statement' => true,
     ])
+    ->setLineEnding("\r\n")
     ->setFinder($finder);

@@ -11,7 +11,8 @@ use Illuminate\Queue\SerializesModels;
 
 class UpdateMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     private Day $today;
 

@@ -4,74 +4,95 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Country;
 use App\Models\Day;
-use Carbon\Carbon;
+use App\Models\Entry;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 
 class SyncDaysCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'sync:days';
+
+    public Collection $countries;
 
     public function handle(): void
     {
-        try {
-            $confirmed = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/confirmed');
-            $deaths    = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/deaths');
-            $recovered = file_get_contents('https://coronavirus-tracker-api.herokuapp.com/recovered');
-        } catch (\Exception $e) {
-            Log::debug('Error loading api');
+        $this->getCountries()
+            ->each(function (Country $country, int $key) {
 
-            return;
-        }
+                $this->comment(
+                    sprintf("✅ %s %s (%d/%d)",
+                        $country->code,
+                        $country->name,
+                        ++$key,
+                        $this->countries->count()
+                    )
+                );
 
-        $confirmed_data = json_decode($confirmed, true);
-        if ($confirmed_data && json_last_error() === JSON_ERROR_NONE) {
-            $this->sync('confirmed', $confirmed_data);
-        }
-
-        $deaths_data = json_decode($deaths, true);
-        if ($deaths_data && json_last_error() === JSON_ERROR_NONE) {
-            $this->sync('deaths', $deaths_data);
-        }
-
-        $recovered_data = json_decode($recovered, true);
-        if ($recovered_data && json_last_error() === JSON_ERROR_NONE) {
-            $this->sync('recovered', $recovered_data);
-        }
+                $this->getDataByCountry($country)
+                    ->each(fn(Entry $entry) => $this->saveEntry($entry));
+        });
     }
 
-    private function sync(string $type, array $data): void
+    /**
+     * @return \Illuminate\Support\Collection|\App\Models\Country[]
+     */
+    private function getCountries(): Collection
     {
-        $this->info("Syncing {$type}");
+        $response = Http::get('https://api.covid19api.com/countries');
 
-        $locationCount = count($data['locations']);
+        $list = collect();
 
-        $i = 0;
-
-        foreach ($data['locations'] as $item) {
-            $country = $item['province'] ?: $item['country'];
-
-            foreach ($item['history'] as $date => $count) {
-                $date = Carbon::createFromFormat('n/j/y', $date)->startOfDay();
-
-                Day::updateOrCreate([
-                    'country_code' => $item['country_code'],
-                    'country'      => $country,
-                    'date'         => $date,
-                ], [
-                    $type => $count,
-                ]);
+        if ($response->ok()) {
+            foreach ($response->json() as $country) {
+                $list->push(
+                    new Country($country['Country'], $country['Slug'], $country['ISO2'])
+                );
             }
-
-            $i += 1;
-
-            $this->comment("✅ {$item['country_code']} {$country} ({$i}/{$locationCount})");
         }
+
+        $this->countries = $list;
+
+        return $list;
+    }
+
+    /**
+     * @param \App\Models\Country $country
+     *
+     * @return \Illuminate\Support\Collection|\App\Models\Entry[]
+     */
+    private function getDataByCountry(Country $country): Collection
+    {
+        $response = Http::get('https://api.covid19api.com/total/country/' . $country->slug);
+
+        $entries = collect();
+
+        if ($response->ok()) {
+            foreach ($response->json() as $info) {
+                $entries->push(
+                    new Entry($country, $info)
+                );
+            }
+        }
+
+        return $entries;
+    }
+
+    private function saveEntry(Entry $entry): void
+    {
+        Day::updateOrCreate(
+            [
+                'country_code' => $entry->country->code,
+                'country'      => $entry->country->name,
+                'date'         => $entry->date,
+            ],
+            [
+                'confirmed' => $entry->confirmed,
+                'deaths'    => $entry->deaths,
+                'recovered' => $entry->recovered,
+            ]
+        );
     }
 }
