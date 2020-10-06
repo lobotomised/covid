@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Mail;
 
 use App\Models\Day;
+use App\Support\Number;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Support\Number;
 
 class UpdateMail extends Mailable
 {
