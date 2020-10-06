@@ -8,6 +8,7 @@ use App\Models\Day;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Support\Number;
 
 class UpdateMail extends Mailable
 {
@@ -33,9 +34,9 @@ class UpdateMail extends Mailable
                 'confirmed'      => $this->today->confirmed,
                 'deaths'         => $this->today->deaths,
                 'recovered'      => $this->today->recovered,
-                'confirmedDelta' => delta($this->today->confirmed, $this->yesterday->confirmed),
-                'deathsDelta'    => delta($this->today->deaths, $this->yesterday->deaths),
-                'recoveredDelta' => delta($this->today->recovered, $this->yesterday->recovered),
+                'confirmedDelta' => Number::delta($this->today->confirmed, $this->yesterday->confirmed),
+                'deathsDelta'    => Number::delta($this->today->deaths, $this->yesterday->deaths),
+                'recoveredDelta' => Number::delta($this->today->recovered, $this->yesterday->recovered),
             ]);
     }
 }
