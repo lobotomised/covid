@@ -1,5 +1,6 @@
 @component('layout', [
     'chartData' => $chartData,
+    'tableData' => $tableData,
     'country' => $country,
 ])
     @slot('title'){{ $country }}@endslot
@@ -60,8 +61,8 @@
                 </tfoot>
                 <tbody>
                 @php
-                    /** @var \Illuminate\Support\Collection $chartData */
-                    $data = $chartData->reverse()->values();
+                    /** @var \Illuminate\Support\Collection $tableData */
+                    $data = $tableData->reverse()->values();
                 @endphp
 
                 @for($i = 0; $i < $data->count(); $i++)

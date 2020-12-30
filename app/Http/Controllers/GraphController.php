@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Resources\DayChartResource;
+use App\Http\Resources\DayTableResource;
 use App\Models\Day;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
@@ -23,11 +24,10 @@ class GraphController extends Controller
             throw new ModelNotFoundException();
         }
 
-        $chartData = DayChartResource::make($days);
-
         return view('graph', [
             'days'      => $days,
-            'chartData' => $chartData,
+            'chartData' => DayChartResource::make($days),
+            'tableData' => DayTableResource::make($days),
             'country'   => $days->first()->country,
         ]);
     }
