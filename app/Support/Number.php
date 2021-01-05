@@ -11,7 +11,7 @@ final class Number
         $delta = $value1 - $value2;
         $sign  = gmp_sign($delta);
 
-        if($format_output) {
+        if ($format_output) {
             $delta = self::format($delta);
         }
 
