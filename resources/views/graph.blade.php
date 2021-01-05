@@ -1,3 +1,7 @@
+@php
+use \App\Support\Number;
+@endphp
+
 @component('layout', [
     'chartData' => $chartData,
     'tableData' => $tableData,
@@ -69,21 +73,21 @@
                     <tr>
                         <td> {{$data[$i]->date->format('d/m/Y')}}</td>
                         <td>
-                            {{ \App\Support\Number::format($data[$i]->confirmed) }}
+                            {{ Number::format($data[$i]->confirmed) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->confirmed, $data[$i+1]->confirmed) }})</span>
+                                <span class="delta">({{ Number::delta(value1: $data[$i]->confirmed, value2: $data[$i+1]->confirmed, format_output: true) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{ \App\Support\Number::format($data[$i]->deaths) }}
+                            {{ Number::format($data[$i]->deaths) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->deaths, $data[$i+1]->deaths) }})</span>
+                                <span class="delta">({{ Number::delta(value1: $data[$i]->deaths, value2: $data[$i+1]->deaths, format_output: true) }})</span>
                             @endisset
                         </td>
                         <td>
-                            {{ \App\Support\Number::format($data[$i]->recovered) }}
+                            {{ Number::format($data[$i]->recovered) }}
                             @isset($data[$i+1])
-                                <span class="delta">({{ \App\Support\Number::delta($data[$i]->recovered, $data[$i+1]->recovered) }})</span>
+                                <span class="delta">({{ Number::delta(value1: $data[$i]->recovered, value2: $data[$i+1]->recovered, format_output: true) }})</span>
                             @endisset
                         </td>
                     </tr>
